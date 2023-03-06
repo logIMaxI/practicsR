@@ -1,0 +1,5 @@
+number <- as.numeric(c(1:15))
+country <- c(rep("France",5),rep("Italy",5),rep("Spain",5))
+year <- as.numeric(c(rep(c(2019,2020,2020,2018,2017),3)))
+total <- as.numeric(c(rep(c(5,5,2,3,4),3)))
+matrix <- cbind(number,country,year,total)
