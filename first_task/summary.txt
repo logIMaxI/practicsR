@@ -17,4 +17,3 @@ col sums:
 sum of middle row elements: 
 11
 sum of middle column elements: 
-11

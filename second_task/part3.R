@@ -1,0 +1,30 @@
+#---------------------------(1)
+path <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+data <- read.csv(path)
+#---------------------------(2)
+library(dplyr)
+summary(data)
+str(data)
+glimpse(x = data)
+#---------------------------(3)
+library(tidyr)
+new_data <- unite(data= data, col = new_vector, Country.Region, Province.State,sep = " / ")
+#---------------------------(4)
+sum <- aggregate(data$X3.9.23,by = list(data$Country.Region), FUN = sum)$x
+lats <- aggregate(data$Lat, by = list(data$Country.Region), FUN = mean)
+longs <- aggregate(data$Long, by = list(data$Country.Region), FUN = mean)$x
+#df_mean <- apply(X = data[, -c(1:4)],MARGIN = 1, FUN = mean)
+#df_sd <- apply(X = data[, -c(1:4)],MARGIN = 1, FUN = sd)
+df <- data.frame(data = list(lats,longs,sum))
+colnames(df) <- c("Страна/Регион", "Широта","Долгота","Сумма заболевших")
+#---------------------------(5)
+date <- as.Date(colnames(data[,-c(1:4)]), format = "X%m.%d.%y")
+result_df <- t(new_data[,-c(1:3)])
+new_names <- new_data[,1]
+colnames(result_df) <- paste("Страна ",new_names)
+row.names(result_df) <- c()
+result_df <- cbind(as.character(date), result_df)
+cur_names <- colnames(result_df)[-1]
+colnames(result_df) <- c("Date", cur_names)
+#---------------------------(6)
+write.csv(x = df, file = "data_output.csv")

@@ -1,0 +1,22 @@
+#---------------------------(1)
+library(randomNames)
+#---------------------------(2)
+set.seed(1234)
+names <- randomNames(100,which.names = "first",ethnicity = 4)
+#---------------------------(3)
+ages <- sample(16:75, 100,replace=T)
+views <- c("right","left","moderate","indifferent")
+polit <- sample(views, 100, replace=T)
+df <- data.frame(list(names,ages,polit))
+colnames(df) <- c("names","ages","polit")
+#---------------------------(4)
+id <- c(1:100)
+df$id <- id
+#---------------------------(5)
+data <- length(df$ages[df$ages >= 25 & df$ages <= 30])
+part <- round((data / length(df$ages))*100, 1)
+part
+#---------------------------(6)
+polit_views <- as.factor(polit)
+levels(polit_views)
+df$polit_views <- polit_views
