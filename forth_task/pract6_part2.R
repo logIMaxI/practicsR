@@ -85,7 +85,5 @@ library(ggplot2)
 my_vector <- alter_johns(df$ATVI.Open)
 my_df <- data.frame(list(as.Date(row.names(df), format = "%Y-%m-%d"), my_vector))
 colnames(my_df) <- c("Date", "Alter_John_function")
-#my_vector_ts <- ts(data = my_vector, start = c(1993, 10, 25),
- #                  frequency = 1, names = "ATVI Open")
 ggplot(data = my_df, aes(x = Date, y = Alter_John_function))+
   geom_line()
